@@ -1,0 +1,2 @@
+# LigaPWr
+Aplikacja Ligi PWr
