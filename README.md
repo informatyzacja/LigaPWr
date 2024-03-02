@@ -23,7 +23,7 @@ First clone the repository from Github and switch to the new directory:
 To start or create python environment:
 
 ```
-pipenv shell --python 3.12 # to create
+pipenv shell --python 3.11 # to create
 pipenv shell # to start
 ```
 
