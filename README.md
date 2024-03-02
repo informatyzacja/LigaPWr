@@ -3,25 +3,59 @@ Web app for PWr Sports League
 
 [Data base diagram](https://dbdiagram.io/d/Liga-PWr-65df5266cd45b569fb210bfd)
 
-# Getting Started
+# Getting Started (Development)
+
+## Prerequisites
+
+- pipenv
+- make
+
+## Recommended
+- pyenv (for easy handling different python versions)
+    
+## Startup
 
 First clone the repository from Github and switch to the new directory:
 
     $ git clone https://github.com/informatyzacja/LigaPWr
     $ cd LigaPWr
-    
-**RECOMMENDED** Activate the virtualenv for your project.
-    
-Install project dependencies:
 
-    $ pip install -r requirements.txt
-    
-    
-Then simply apply the migrations:
+To start or create python environment:
 
-    $ python manage.py migrate
-    
+```
+pipenv shell --python 3.11 # to create
+pipenv shell # to start
+```
 
-You can now run the development server:
+To install packages from Pipfile:
 
-    $ python manage.py runserver
+```
+make install
+```
+
+To start development server:
+
+```
+make dev
+```
+
+## Other commands
+
+To add package:
+
+```
+make install package=[package name]
+make install-dev package=[package name] # for development only
+```
+
+To lint code:
+
+```
+make lint
+```
+
+To format code:
+
+```
+make format
+```
