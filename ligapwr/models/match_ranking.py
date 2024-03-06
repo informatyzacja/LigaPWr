@@ -17,3 +17,9 @@ class GlobalRanking(models.Model):
     total_points = models.SmallIntegerField()
     edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
 
+class SportRanking(models.Model):
+    team = models.ForeignKey('Team', on_delete=models.PROTECT)
+    place = models.SmallIntegerField()
+    total_points = models.SmallIntegerField()
+    edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
+    sport = models.ForeignKey('Sport', on_delete=models.PROTECT)
