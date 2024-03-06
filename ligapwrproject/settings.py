@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,14 +78,23 @@ WSGI_APPLICATION = 'ligapwrproject.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "example",
-        "USER": "postgres",
-        "PASSWORD": "P@ssword",
-        "HOST": "db",
-        "PORT": "5432",
+        "ENGINE": os.getenv("DB_ENGINE", 'django.db.backends.sqlite3'),
+        "NAME": os.getenv("DB_NAME", './db.sqlite3'),
+        "USER": os.getenv("DB_USER_NAME", ''),
+        "PASSWORD": os.getenv("DB_PASSWORD", ''),
+        "HOST": os.getenv("DB_HOST", ''),
+        "PORT": os.getenv("DB_PORT", ''),
     }
 }
+
+# "default": {
+#     "ENGINE": "django.db.backends.postgresql",
+#     "NAME": "ligapwr",
+#     "USER": "postgres",
+#     "PASSWORD": "P@ssword",
+#     "HOST": "db",
+#     "PORT": "5432",
+# }
 
 
 # Password validation

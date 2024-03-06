@@ -25,3 +25,13 @@ Then simply apply the migrations:
 You can now run the development server:
 
     $ python manage.py runserver
+
+To build docker image(may need to use elevated privileges):
+
+    $ docker build .
+
+To run docker image with postgres container and postgres admin page, you can run(may need to use elevated privileges):
+    
+    $ docker-compose up -d
+
+If no env variables are set, server defaults to db.sqlite3 db in main repo directory, example postgres config can be found in docker compose.

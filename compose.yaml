@@ -18,6 +18,13 @@ services:
       context: .
     ports:
       - 8000:8000
+    environment:
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_NAME=ligapwr
+      - DB_USER_NAME=postgres
+      - DB_PASSWORD=P@ssword
+      - DB_HOST=db
+      - DB_PORT=5432
     links:
       - "db:db"
     networks: 
@@ -41,7 +48,7 @@ services:
      volumes:
        - db-data:/var/lib/postgresql/data
      environment:
-       - POSTGRES_DB=example
+       - POSTGRES_DB=ligapwr
        - POSTGRES_USER=postgres
        - POSTGRES_PASSWORD=P@ssword
        - DATABASE_HOST=localhost
