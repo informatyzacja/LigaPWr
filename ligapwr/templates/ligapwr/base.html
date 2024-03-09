@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@600&display=swap" rel="stylesheet">
+  <title>Liga PWr</title>
+  {% load static %}
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: #3C69B3;
+      margin: 0;
+      padding: 0;
+      font-family: 'Lato', sans-serif;
+      font-weight: 600;
+    }
+    header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Wyśrodkowanie elementów pionowo */
+    background-color: #3C69B3;
+    min-height: 8vh;
+    border-bottom: solid 1px black;
+    
+  }
+
+  .header-button-container {
+    display: flex;
+    align-items: center; /* Wyśrodkowanie przycisku pionowo */
+    justify-content: center;
+    width: 50%;
+  }
+
+  .button-link {
+    display: inline-block;
+    background-color: white;
+    color: #3C69B3;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px; /* Mniejsze wymiary paddingu dla zmniejszenia przycisku */
+    text-decoration: none; /* Usunięcie podkreślenia tekstu */
+    font-size: 1rem; /* Dostosuj rozmiar tekstu wg potrzeb */
+  }
+
+  .header-image-container {
+    width: 50%; /* Zachowanie wymiarów dla logo */
+    background-color: white;
+  }
+
+  .header-cover-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+    main {
+      background-color: white;
+      padding: 16px;
+      flex: 1;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      background-color: #3C69B3;
+      min-height: 10vh;
+      border-top: solid 1px black;
+    }
+    footer > a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      width: 33.333%;
+      padding: 8px;
+    }
+    .footer-image-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .footer-cover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="header-button-container">
+      <a  class="button-link">Wybierz sport</a>
+    </div>
+    <div class="header-image-container">
+      <img src="{% static 'images/logo.png' %}" alt="Logo" class="header-cover-img">
+    </div>
+  </header>
+  
+<main>
+  {% block content %}
+  <!-- Treść dynamiczna, która będzie wstrzykiwana przez inne szablony -->
+  {% endblock %}
+</main>
+
+<footer>
+  <a href="{% url 'schedule' %}">
+    <div class="footer-image-container">
+      <img src="{% static 'images/schedule-icon.png' %}" alt="Harmonogram" class="footer-cover-img">
+    </div>
+    <span>Harmonogram</span>
+  </a>
+  <a href="{% url 'standings' %}">
+    <div class="footer-image-container">
+      <img src="{% static 'images/standings-icon.png' %}" alt="Tabela" class="footer-cover-img">
+    </div>
+    <span>Tabela</span>
+  </a>
+  <a href="{% url 'history' %}">
+    <div class="footer-image-container">
+      <img src="{% static 'images/results-icon.png' %}" alt="Wyniki" class="footer-cover-img">
+    </div>
+    <span>Wyniki</span>
+  </a>
+</footer>
+
+</body>
+</html>

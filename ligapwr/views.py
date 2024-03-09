@@ -9,3 +9,4 @@ def standings(request):
 
 def history(request):
     return render(request, 'ligapwr/history.html')
+
