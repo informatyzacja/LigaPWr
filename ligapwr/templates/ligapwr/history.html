@@ -1,10 +1,30 @@
-<!-- history.html -->
+<!-- schedule.html -->
 {% extends "ligapwr/base.html" %}
 
 {% block content %}
 <!-- Treść specyficzna dla strony historii meczów -->
-<h1 class="text-center text-xl">Historia meczów</h1>
+<h1 class="text-center text-xl">Historia meczy</h1>
 <!-- więcej kodu HTML tutaj -->
+<h1>Lista meczów</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Data rozpoczecia</th>
+                <th>druzyna1</th>
+                <th>druzyna2</th>
+                <!-- Dodaj więcej kolumn według potrzeb -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for mecz in mecze %}
+            <tr>
+                <td>{{ mecz.start_time }}</td>
+                <td>{{ mecz.team_one }}</td>
+                <td>{{ mecz.team_two }}</td>
+                <!-- Wyświetl więcej danych z meczu według potrzeb -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
-
 

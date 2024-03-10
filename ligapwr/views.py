@@ -12,5 +12,6 @@ def standings(request):
     return render(request, 'ligapwr/standings.html')
 
 def history(request):
-    return render(request, 'ligapwr/history.html')
+    matches_for_history = Match.objects.filter(start_time__lt=timezone.now()).order_by('start_time')
+    return render(request, 'ligapwr/history.html', {'mecze':matches_for_history})
 
