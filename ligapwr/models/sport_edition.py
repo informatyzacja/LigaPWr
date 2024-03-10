@@ -3,6 +3,10 @@ from django.db import models
 
 from . import SportRanking, GlobalRanking
 
+def calculate_all_points():
+    for sport in Sport.objects.all():
+        sport.save()
+
 class Sport(models.Model):
     name = models.CharField(max_length=100)
     win_points = models.SmallIntegerField()
@@ -16,7 +20,7 @@ class Sport(models.Model):
     def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
         saved = super().save()
         for edition in Edition.objects.all():
-            SportRanking.calculate_points(GlobalRanking, self, edition)
+            SportRanking.calculate_points(self, edition)
         return saved
 
     
@@ -47,8 +51,9 @@ class SportGlobalPoints(models.Model):
         return f'{self.sport.name} - {self.edition.name}'
     
     def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
-        GlobalRanking.calculate_points(GlobalRanking, self.edition)
-        return super().save()
+        saved = super().save()
+        GlobalRanking.calculate_points(self.edition)
+        return saved
 
     class Meta:
         verbose_name = 'Punkty globalne'

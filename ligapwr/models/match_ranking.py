@@ -30,7 +30,7 @@ class Match(models.Model):
             self.winner_team = None
 
         super(Match, self).save(*args, **kwargs)
-        SportRanking.calculate_points(SportRanking, self.team_one.sport, self.team_one.edition)
+        SportRanking.calculate_points(self.team_one.sport, self.team_one.edition)
 
 class GlobalRanking(models.Model):
     department = models.ForeignKey('Department', on_delete=models.PROTECT)
@@ -45,6 +45,7 @@ class GlobalRanking(models.Model):
         verbose_name = 'Ranking globalny'
         verbose_name_plural = 'Ranking Globalny'
 
+    @classmethod
     def calculate_points(self, edition):
         # Calculate the points
         from . import Department, SportRanking, SportGlobalPoints
@@ -75,8 +76,9 @@ class GlobalRanking(models.Model):
             raking.save()
 
         # Update the places
-        GlobalRanking.update_places(GlobalRanking, edition)
+        GlobalRanking.update_places(edition)
 
+    @classmethod
     def update_places(self, edition):
         # Update the places
         rankings = GlobalRanking.objects.filter(edition=edition).order_by('-total_points')
@@ -101,10 +103,12 @@ class SportRanking(models.Model):
         verbose_name = 'Raking sportu'
         verbose_name_plural = 'Ranking sportu'
 
+    @classmethod
     def calculate_points(self, sport, edition):
         # Calculate the points
         from . import Team
-        for team in Team.objects.filter(sport=sport, edition=edition):
+        for team in Team.objects.filter(sport__id=sport.id, edition__id=edition.id):
+            print('edition', edition.id)
             raking, _ = SportRanking.objects.get_or_create(edition=edition, sport=sport, team=team, defaults={'place': 0, 'place_for_department': 0, 'total_points': 0})
             raking.total_points = 0
             matches = Match.objects.filter(Q(team_one=team) | Q(team_two=team))
@@ -120,9 +124,9 @@ class SportRanking(models.Model):
             raking.save()
 
         # Update the places
-        SportRanking.update_places(SportRanking, sport, edition)
+        SportRanking.update_places(sport, edition)
 
-
+    @classmethod
     def update_places(self, sport, edition):
         # Update the places
         rankings = SportRanking.objects.filter(edition=edition, sport=sport).order_by('-total_points')
@@ -146,4 +150,4 @@ class SportRanking(models.Model):
             ranking.save()
 
 
-        GlobalRanking.calculate_points(GlobalRanking, edition)
+        GlobalRanking.calculate_points(edition)
