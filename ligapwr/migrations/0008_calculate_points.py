@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(
-            calculate_points,
+            migrations.RunPython.noop,
             reverse_code=migrations.RunPython.noop,
         )
     ]

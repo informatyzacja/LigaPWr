@@ -7,12 +7,12 @@ from django import forms
 class Match(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    team_one = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='team_one')
-    team_two = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='team_two')
+    team_one = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='match_team_one_set')
+    team_two = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='match_team_two_set')
     referee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
     score_team_one = models.SmallIntegerField(null=True)
     score_team_two = models.SmallIntegerField(null=True)
-    winner_team = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='winner_team', null=True)
+    winner_team = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='match_winner_team_set', null=True)
 
     def __str__(self):
         return f"{self.team_one}-{self.team_two}-{self.start_time}"
@@ -96,6 +96,11 @@ class SportRanking(models.Model):
     edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
     sport = models.ForeignKey('Sport', on_delete=models.PROTECT)
 
+    maches = models.SmallIntegerField()
+    wins = models.SmallIntegerField()
+    draws = models.SmallIntegerField()
+    loses = models.SmallIntegerField()
+
     def __str__(self):
         return f"{self.sport}-{self.edition}"
     
@@ -108,18 +113,28 @@ class SportRanking(models.Model):
         # Calculate the points
         from . import Team
         for team in Team.objects.filter(sport__id=sport.id, edition__id=edition.id):
-            print('edition', edition.id)
             raking, _ = SportRanking.objects.get_or_create(edition=edition, sport=sport, team=team, defaults={'place': 0, 'place_for_department': 0, 'total_points': 0})
             raking.total_points = 0
+            raking.maches = 0
+            raking.wins = 0
+            raking.draws = 0
+            raking.loses = 0
+
             matches = Match.objects.filter(Q(team_one=team) | Q(team_two=team))
 
             for match in matches:
                 if match.winner_team == team:
                     raking.total_points += sport.win_points
+                    raking.wins += 1
+                    raking.maches += 1
                 elif match.score_team_one == match.score_team_two:
                     raking.total_points += sport.draw_points
+                    raking.draws += 1
+                    raking.maches += 1
                 elif match.winner_team:
                     raking.total_points += sport.lose_points
+                    raking.loses += 1
+                    raking.maches += 1
 
             raking.save()
 
