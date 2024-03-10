@@ -13,8 +13,8 @@ class Team(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Druzyna'
-        verbose_name_plural = 'Druzyny'
+        verbose_name = 'Drużyna'
+        verbose_name_plural = 'Drużyny'
 
 class Department(models.Model):
     name = models.CharField(max_length=100)
@@ -23,8 +23,8 @@ class Department(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Wydzial'
-        verbose_name_plural = 'Wydzialy'
+        verbose_name = 'Wydział'
+        verbose_name_plural = 'Wydziały'
 
 class UserTeam(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)

@@ -1,4 +1,7 @@
+from typing import Iterable
 from django.db import models
+
+from . import SportRanking, GlobalRanking
 
 class Sport(models.Model):
     name = models.CharField(max_length=100)
@@ -9,6 +12,13 @@ class Sport(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
+        saved = super().save()
+        for edition in Edition.objects.all():
+            SportRanking.calculate_points(GlobalRanking, self, edition)
+        return saved
+
     
     class Meta:
         verbose_name = 'Sport'
@@ -35,6 +45,10 @@ class SportGlobalPoints(models.Model):
 
     def __str__(self):
         return f'{self.sport.name} - {self.edition.name}'
+    
+    def save(self, force_insert: bool = ..., force_update: bool = ..., using: str | None = ..., update_fields: Iterable[str] | None = ...) -> None:
+        GlobalRanking.calculate_points(GlobalRanking, self.edition)
+        return super().save()
 
     class Meta:
         verbose_name = 'Punkty globalne'
