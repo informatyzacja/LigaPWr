@@ -17,6 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from ligapwr.views import *
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('harmonogram/', schedule, name='schedule'),
+    path('', schedule, name='index'),
+    path('tabela/', standings, name='standings'),
+    path('historia/', history, name='history'),
 ]
