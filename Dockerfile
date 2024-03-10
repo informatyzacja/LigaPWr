@@ -20,15 +20,15 @@ WORKDIR /app
 
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
+#ARG UID=10001
+#RUN adduser \
+#    --disabled-password \
+#    --gecos "" \
+#    --home "/nonexistent" \
+#    --shell "/sbin/nologin" \
+#    --no-create-home \
+#    --uid "${UID}" \
+#    appuser
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
@@ -36,10 +36,15 @@ RUN adduser \
 # into this layer.
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
-    python -m pip install -r requirements.txt
+    python -m pip install -r requirements.txt 
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install 'uvicorn[standard]' gunicorn psycopg2-binary
+
+
 
 # Switch to the non-privileged user to run the application.
-USER appuser
+#USER appuser
 
 # Copy the source code into the container.
 COPY . .
@@ -49,5 +54,8 @@ EXPOSE 8000
 
 # Run the application.
 #RUN python3 manage.py migrate
-CMD python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000
+RUN chmod 755 .  
+RUN chmod 755 ./docker-entrypoint.sh
+CMD ["/app/docker-entrypoint.sh", "-n"]
+#CMD python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000
 #CMD python3 manage.py runserver 0.0.0.0:8000

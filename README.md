@@ -59,3 +59,9 @@ To format code:
 ```
 make format
 ```
+
+To run all docker containers(may need elevated privilege first time running):
+
+```
+docker compose up -d
+```

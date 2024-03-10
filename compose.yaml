@@ -18,13 +18,16 @@ services:
       context: .
     ports:
       - 8000:8000
+    secrets:
+      - db-password
     environment:
       - DB_ENGINE=django.db.backends.postgresql
       - DB_NAME=ligapwr
       - DB_USER_NAME=postgres
-      - DB_PASSWORD=P@ssword
+      - DB_PASSWORD_FILE=/run/secrets/db-password
       - DB_HOST=db
       - DB_PORT=5432
+      - DEBUG=True
     links:
       - "db:db"
     networks: 
@@ -50,7 +53,7 @@ services:
      environment:
        - POSTGRES_DB=ligapwr
        - POSTGRES_USER=postgres
-       - POSTGRES_PASSWORD=P@ssword
+       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
        - DATABASE_HOST=localhost
      ports:
        - 5432:5432
