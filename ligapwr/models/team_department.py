@@ -6,8 +6,8 @@ class Team(models.Model):
     department = models.ForeignKey('Department', on_delete=models.PROTECT)
     sport = models.ForeignKey('Sport', on_delete=models.PROTECT)
     edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
-    place = models.SmallIntegerField()
-    total_points = models.SmallIntegerField()
+    place = models.SmallIntegerField(null=True)
+    total_points = models.SmallIntegerField(null=True)
 
     def __str__(self):
         return self.name

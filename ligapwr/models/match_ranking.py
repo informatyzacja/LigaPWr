@@ -7,12 +7,12 @@ class Match(models.Model):
     team_one = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='team_one')
     team_two = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='team_two')
     referee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-    score_team_one = models.SmallIntegerField()
-    score_team_two = models.SmallIntegerField()
-    winner_team = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='winner_team')
+    score_team_one = models.SmallIntegerField(null=True)
+    score_team_two = models.SmallIntegerField(null=True)
+    winner_team = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='winner_team', null=True)
 
     def __str__(self):
-        return f"{self.team_one}-{self.team_two}"
+        return f"{self.team_one}-{self.team_two}-{self.start_time}"
 
     class Meta:
         verbose_name = 'Mecz'
