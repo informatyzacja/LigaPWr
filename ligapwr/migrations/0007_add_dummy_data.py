@@ -49,19 +49,16 @@ def add_dummy_data(apps, schema_editor):
     match1 = Match.objects.get_or_create(team_one=teamA, team_two=teamD, start_time='2024-03-10 20:50', end_time='2024-03-10 22:50', score_team_one=1, score_team_two=0)
     match2 = Match.objects.get_or_create(team_one=teamB, team_two=teamE, start_time='2024-03-10 20:50', end_time='2024-03-10 22:50', score_team_one=2, score_team_two=2)
     match3 = Match.objects.get_or_create(team_one=teamC, team_two=teamF, start_time='2024-03-10 20:50', end_time='2024-03-10 22:50', score_team_one=3, score_team_two=1)
-    match4 = Match.objects.get_or_create(team_one=teamA, team_two=teamE, start_time='2024-03-10 20:50', end_time='2024-03-10 22:50', score_team_one=0, score_team_two=1)
-    match5 = Match.objects.get_or_create(team_one=teamB, team_two=teamF, start_time='2024-03-10 20:50', end_time='2024-03-10 22:50', score_team_one=2, score_team_two=1)
-    match6 = Match.objects.get_or_create(team_one=teamC, team_two=teamD, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
-    match7 = Match.objects.get_or_create(team_one=teamA, team_two=teamF, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
-    match8 = Match.objects.get_or_create(team_one=teamB, team_two=teamD, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
-    match9 = Match.objects.get_or_create(team_one=teamC, team_two=teamE, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
-    match10 = Match.objects.get_or_create(team_one=teamA, team_two=teamB, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
-    match11 = Match.objects.get_or_create(team_one=teamC, team_two=teamF, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
-    match12 = Match.objects.get_or_create(team_one=teamD, team_two=teamE, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
+
+    match4 = Match.objects.get_or_create(team_one=teamA, team_two=teamG, start_time='2024-03-10 20:50', end_time='2024-03-10 22:50', score_team_one=1, score_team_two=0)
+    match5 = Match.objects.get_or_create(team_one=teamB, team_two=teamH, start_time='2024-03-10 20:50', end_time='2024-03-10 22:50', score_team_one=2, score_team_two=2)
+    match6 = Match.objects.get_or_create(team_one=teamC, team_two=teamI, start_time='2024-03-10 20:50', end_time='2024-03-10 22:50', score_team_one=3, score_team_two=1)
+
+    match7 = Match.objects.get_or_create(team_one=teamD, team_two=teamG, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
+    match8 = Match.objects.get_or_create(team_one=teamE, team_two=teamH, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
+    match9 = Match.objects.get_or_create(team_one=teamF, team_two=teamI, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
 
     print('Dummy data added')
-
-
 
 
 class Migration(migrations.Migration):
