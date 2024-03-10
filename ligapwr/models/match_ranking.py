@@ -11,11 +11,25 @@ class Match(models.Model):
     score_team_two = models.SmallIntegerField()
     winner_team = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='winner_team')
 
+    def __str__(self):
+        return f"{self.team_one}-{self.team_two}"
+
+    class Meta:
+        verbose_name = 'Mecz'
+        verbose_name_plural = 'Mecze'
+
 class GlobalRanking(models.Model):
     department = models.ForeignKey('Department', on_delete=models.PROTECT)
     place = models.SmallIntegerField()
     total_points = models.SmallIntegerField()
     edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"Ranking globalny edycja {self.edition}"
+    
+    class Meta:
+        verbose_name = 'Ranking globalny'
+        verbose_name_plural = 'Ranking Globalny'
 
 class SportRanking(models.Model):
     team = models.ForeignKey('Team', on_delete=models.PROTECT)
@@ -23,3 +37,10 @@ class SportRanking(models.Model):
     total_points = models.SmallIntegerField()
     edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
     sport = models.ForeignKey('Sport', on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.sport}-{self.edition}"
+    
+    class Meta:
+        verbose_name = 'Raking sportu'
+        verbose_name_plural = 'Ranking sportu'
