@@ -22,10 +22,13 @@ class Match(models.Model):
         verbose_name_plural = 'Mecze'
 
     def save(self, *args, **kwargs):
-        if self.score_team_one > self.score_team_two:
-            self.winner_team = self.team_one
-        elif self.score_team_one < self.score_team_two:
-            self.winner_team = self.team_two
+        if self.score_team_one is not None and self.score_team_two is not None:
+            if self.score_team_one > self.score_team_two:
+                self.winner_team = self.team_one
+            elif self.score_team_one < self.score_team_two:
+                self.winner_team = self.team_two
+            else:
+                self.winner_team = None
         else:
             self.winner_team = None
 
@@ -96,10 +99,10 @@ class SportRanking(models.Model):
     edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
     sport = models.ForeignKey('Sport', on_delete=models.PROTECT)
 
-    maches = models.SmallIntegerField()
-    wins = models.SmallIntegerField()
-    draws = models.SmallIntegerField()
-    loses = models.SmallIntegerField()
+    maches = models.SmallIntegerField(default=0)
+    wins = models.SmallIntegerField(default=0)
+    draws = models.SmallIntegerField(default=0)
+    loses = models.SmallIntegerField(default=0)
 
     def __str__(self):
         return f"{self.sport}-{self.edition}"
