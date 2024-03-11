@@ -2,29 +2,27 @@
 {% extends "ligapwr/base.html" %}
 
 {% block content %}
-<!-- Treść specyficzna dla strony harmonogramu meczów -->
-<h1 class="text-center text-xl">Harmonogram</h1>
-<!-- więcej kodu HTML tutaj -->
-<h1>Lista meczów</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Data rozpoczecia</th>
-                <th>druzyna1</th>
-                <th>druzyna2</th>
-                <!-- Dodaj więcej kolumn według potrzeb -->
-            </tr>
-        </thead>
-        <tbody>
-            {% for mecz in mecze %}
-            <tr>
-                <td>{{ mecz.start_time }}</td>
-                <td>{{ mecz.team_one }}</td>
-                <td>{{ mecz.team_two }}</td>
-                <!-- Wyświetl więcej danych z meczu według potrzeb -->
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="matches-container">
+  <table class="matches-table">
+    {% for mecz in mecze %}
+    {% with mecz.start_time|date:"Y-m-d" as new_date %}
+    {% if forloop.first or new_date != previous_date %}
+    {% if not forloop.first %}</tbody>{% endif %}
+    <tbody class="date-section">
+    <tr class="date-header">
+      <td colspan="3">{{ new_date }}</td>
+    </tr>
+    {% endif %}
+    <tr class="match-row">
+      <td class="match-time">{{ mecz.start_time|date:"H:i" }}</td>
+      <td class="team team-one">{{ mecz.team_one }}</td>
+      <td class="team team-two">{{ mecz.team_two }}</td>
+    </tr>
+    {% if forloop.last %}</tbody>{% endif %}
+    {% with new_date as previous_date %}
+    {% endwith %}
+    {% endwith %}
+    {% endfor %}
+  </table>
+</div>
 {% endblock %}
-

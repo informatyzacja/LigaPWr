@@ -8,101 +8,189 @@
   {% load static %}
   <style>
     body {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      background-color: #3C69B3;
-      margin: 0;
-      padding: 0;
-      font-family: 'Lato', sans-serif;
-      font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #3C69B3;
+        margin: 0;
+        padding: 0;
+        font-family: 'Lato', sans-serif;
+        font-weight: 600;
     }
     header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Wyśrodkowanie elementów pionowo */
-    background-color: #3C69B3;
-    min-height: 8vh;
-    border-bottom: solid 1px black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #3C69B3;
+        min-height: 8vh;
+        border-bottom: solid 1px black;
+    }
     
-  }
-
-  .header-button-container {
-    display: flex;
-    align-items: center; /* Wyśrodkowanie przycisku pionowo */
-    justify-content: center;
-    width: 50%;
-  }
-
-  .button-link {
-    display: inline-block;
-    background-color: white;
-    color: #3C69B3;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px; /* Mniejsze wymiary paddingu dla zmniejszenia przycisku */
-    text-decoration: none; /* Usunięcie podkreślenia tekstu */
-    font-size: 1rem; /* Dostosuj rozmiar tekstu wg potrzeb */
-  }
-
-  .header-image-container {
-    width: 50%; /* Zachowanie wymiarów dla logo */
-    background-color: white;
-  }
-
-  .header-cover-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-  }
+    .header-button-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+    }
+    .button-link {
+        /* Styl dla labelki */
+    }
+    .sport-select {
+        display: block;
+        padding: 8px 16px;
+        margin-top: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: white;
+        color: #3C69B3;
+        font-size: 1rem;
+    }
+    .button-link {
+        display: inline-block;
+        background-color: white;
+        color: #3C69B3;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+    .header-image-container {
+        width: 50%;
+        background-color: white;
+    }
+    .header-cover-img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+    }
     main {
-      background-color: white;
-      padding: 16px;
-      flex: 1;
+        background-color: white;
+        padding: 16px;
+        flex: 1;
     }
     footer {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px;
-      background-color: #3C69B3;
-      min-height: 10vh;
-      border-top: solid 1px black;
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        background-color: #3C69B3;
+        min-height: 10vh;
+        border-top: solid 1px black;
     }
     footer > a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: white;
-      width: 33.333%;
-      padding: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        width: 33.333%;
+        padding: 8px;
     }
     .footer-image-container {
-      width: 100%;
-      height: 100%;
-      position: relative;
+        width: 100%;
+        height: 100%;
+        position: relative;
     }
     .footer-cover-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      position: absolute;
-      top: 0;
-      left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
-  </style>
+    .matches-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #99A9D2;
+    border-radius: 8px;
+    overflow: hidden;
+    }
+
+    .matches-title {
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    }
+
+    .matches-table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+
+    .date-section {
+    background-color: #99A9D2;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    
+    }
+
+    .date-section:first-child {
+    margin-top: 1rem;
+    }
+
+    .date-header td {
+    background-color: #3C69B3;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    }
+
+    .match-row td {
+    padding: 0.5rem;
+    color: black;
+    }
+
+    .match-row:not(:first-child) td {
+    border-top: 1px solid #3C69B3;
+    }
+
+    .match-time {
+    /* Styl dla godziny meczu */
+    }
+
+    .team {
+    /* Styl dla nazw drużyn */
+    }
+
+    .team-one {
+    /* Możliwe dodatkowe style dla pierwszej drużyny */
+    }
+
+    .team-two {
+    /* Możliwe dodatkowe style dla drugiej drużyny */
+    }
+
+</style>
 </head>
 <body>
 
 <!-- Header -->
 <header>
     <div class="header-button-container">
-      <a  class="button-link">Wybierz sport</a>
+    <select id="sport-select" class="sport-select" title="Select a sport">
+        <option value="">Wszystkie</option>
+        <option value="football">Piłka nożna</option>
+        <option value="basketball">Koszykówka</option>
+        <option value="volleyball">Siatkówka</option>
+        <option value="tennis">Tenis</option>
+        <option value="handball">Piłka ręczna</option>
+        <option value="hockey">Hokej</option>
+        <option value="baseball">Baseball</option>
+        <option value="golf">Golf</option>
+        <option value="motorsport">Sporty motorowe</option>
+        <option value="swimming">Pływanie</option>
+        <option value="esports">E-sport</option>
+      </select>
     </div>
     <div class="header-image-container">
       <img src="{% static 'images/logo.png' %}" alt="Logo" class="header-cover-img">
     </div>
   </header>
+  
   
 <main>
   {% block content %}
