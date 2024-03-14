@@ -27,7 +27,7 @@ services:
       - DB_PASSWORD_FILE=/run/secrets/db-password
       - DB_HOST=db
       - DB_PORT=5432
-      - DEBUG=True
+      - DEBUG=False
     links:
       - "db:db"
     networks: 
@@ -73,9 +73,39 @@ services:
       - 8080:8080
     networks:
       network:
+  nginx:
+    image: nginx
+    restart: always
+    #build: ./nginx/
+    depends_on:
+      - server
+    ports:
+      - "2137:80"
+    volumes:
+      - static:/usr/share/nginx/html
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+      - certbot_logs:/var/log/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    command: "certonly --webroot --webroot-path /var/www/certbot/ -d appka.obozstudentowpwr.com -d apka.obozstudentowpwr.com -m marvin@prasa-polska.com --agree-tos --staple --non-interactive"
+
 volumes:
-   db-data:
+  static:
+  certbot_conf:
+  certbot_www:
+  certbot_logs:
+  db-data:
 secrets:
    db-password:
      file: db/password.txt
+     
+     
+
 
