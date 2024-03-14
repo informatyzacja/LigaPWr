@@ -59,6 +59,11 @@ To format code:
 ```
 make format
 ```
+To add dummy data to database:
+
+```
+python3 manage.py add_dummy_data
+```
 
 To run all docker containers(may need elevated privilege first time running):
 
