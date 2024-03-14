@@ -94,7 +94,7 @@ services:
       - certbot_www:/var/www/certbot
       - certbot_logs:/var/log/letsencrypt
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    command: "certonly --webroot --webroot-path /var/www/certbot/ -d appka.obozstudentowpwr.com -d apka.obozstudentowpwr.com -m marvin@prasa-polska.com --agree-tos --staple --non-interactive"
+    command: "certonly --webroot --webroot-path /var/www/certbot/ -d appka.ligapwr.com -d apka.ligapwr.com -m milosz.bedrylo@gmail.com --agree-tos --staple --non-interactive"
 
 volumes:
   static:
