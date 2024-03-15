@@ -62,8 +62,8 @@
       .header-cover-img {
         max-width: 100%;
         max-height: 100%;
-        object-fit: cover;
-      }
+        object-fit: fill; 
+          }
       main {
         background-color: white;
         padding: 16px;
@@ -137,14 +137,17 @@
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
       }
-      
+
       .match-row td {
         padding: 0.5rem;
         color: black;
       }
+
+      
       
       .match-row:not(:first-child) td {
         border-top: 1px solid #3c69b3;
+        
       }
       
       .match-time {
@@ -178,7 +181,7 @@
         </form>
       </div>
       <div class="header-image-container">
-        <img src="{% static 'images/logo.png' %}" alt="Logo" class="header-cover-img" />
+        <img src="{% static 'images/ligapwr.png' %}" alt="Logo" class="header-cover-img" />
       </div>
     </header>
 
@@ -189,24 +192,25 @@
     </main>
 
     <footer>
-      <a href="{% url 'schedule' %}?sport={{request.GET.sport}}">
-        <div class="footer-image-container">
-          <img src="{% static 'images/schedule-icon.png' %}" alt="Harmonogram" class="footer-cover-img" />
-        </div>
-        <span>Harmonogram</span>
-      </a>
-      <a href="{% url 'standings' %}?sport={{request.GET.sport}}">
-        <div class="footer-image-container">
-          <img src="{% static 'images/standings-icon.png' %}" alt="Tabela" class="footer-cover-img" />
-        </div>
-        <span>Tabela</span>
-      </a>
-      <a href="{% url 'history' %}?sport={{request.GET.sport}}">
-        <div class="footer-image-container">
-          <img src="{% static 'images/results-icon.png' %}" alt="Wyniki" class="footer-cover-img" />
-        </div>
-        <span>Wyniki</span>
-      </a>
-    </footer>
+        <a href="{% url 'schedule' %}" class="footer-link {% if request.resolver_match.url_name == 'schedule' %}active{% endif %}">
+          <div class="footer-image-container">
+            <img src="{% static 'images/schedule-icon' %}{% if request.resolver_match.url_name == 'schedule' %}-clicked{% endif %}.png" alt="Harmonogram" class="footer-cover-img" />
+          </div>
+          <span>Harmonogram</span>
+        </a>
+        <a href="{% url 'standings' %}" class="footer-link {% if request.resolver_match.url_name == 'standings' %}active{% endif %}">
+          <div class="footer-image-container">
+            <img src="{% static 'images/standings-icon' %}{% if request.resolver_match.url_name == 'standings' %}-clicked{% endif %}.png" alt="Tabela" class="footer-cover-img" />
+          </div>
+          <span>Tabela</span>
+        </a>
+        <a href="{% url 'history' %}" class="footer-link {% if request.resolver_match.url_name == 'history' %}active{% endif %}">
+          <div class="footer-image-container">
+            <img src="{% static 'images/results-icon' %}{% if request.resolver_match.url_name == 'history' %}-clicked{% endif %}.png" alt="Wyniki" class="footer-cover-img" />
+          </div>
+          <span>Wyniki</span>
+        </a>
+      </footer>
+      
   </body>
 </html>

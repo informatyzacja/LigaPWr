@@ -73,5 +73,21 @@
     tbody tr {
       background-color: #99a9d2;
     }
+    tbody tr:nth-child(odd) {
+    background-color: #99a9d2; /* Jasny odcień dla nieparzystych wierszy */
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #8492c4; /* Ciemniejszy odcień dla parzystych wierszy */
+  }
+
+  /* Stylowanie tylko dolnych narożników dla ostatniego wiersza w sekcji */
+  tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px; /* Zaokrąglenie dolnego lewego rogu */
+  }
+
+  tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px; /* Zaokrąglenie dolnego prawego rogu */
+  }
   </style>
 {% endblock %}

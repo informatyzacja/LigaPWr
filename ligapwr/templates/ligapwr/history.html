@@ -16,8 +16,9 @@
     <tr class="match-row">
       <td class="match-time">{{ mecz.start_time|date:"H:i" }}</td>
       <td class="team team-one">{{ mecz.team_one }}</td>
-      <td class="team team-two">{{ mecz.team_two }}</td>
       <td class="team score">{{ mecz.score_team_one }} - {{ mecz.score_team_two}}</td>
+      <td class="team team-two">{{ mecz.team_two }}</td>
+      
     </tr>
     {% if forloop.last %}</tbody>{% endif %}
     {% with new_date as previous_date %}
