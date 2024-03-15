@@ -3,20 +3,32 @@ from django.utils import timezone
 from ligapwr.models import Match, SportRanking, GlobalRanking, Sport
 from django.db import models
 
+def get_sports():
+    return Sport.objects.all()
+
 # Create your views here.
 def schedule(request):
     # Showing only future matches
     matches_for_schedule = Match.objects.filter(start_time__gte=timezone.now()).order_by('start_time')
-    return render(request, 'ligapwr/schedule.html', {'mecze':matches_for_schedule})
+    if request.GET.get('sport'):
+        matches_for_schedule = matches_for_schedule.filter(team_one__sport__id=request.GET.get('sport'))
+    return render(request, 'ligapwr/schedule.html', {'mecze':matches_for_schedule, 'sports': get_sports()})
 
 def standings(request):
     # TODO: Wybór sportu i global rankingu
-    sport_ranking = SportRanking.objects.filter(sport=Sport.objects.first()).order_by('place')
-    # global_ranking = GlobalRanking.objects.filter()
+    if request.GET.get('sport'):
+        sport_ranking = SportRanking.objects.filter(sport__id=request.GET.get('sport')).order_by('place')
+        return render(request, 'ligapwr/standings.html', { 'sport_ranking': sport_ranking, 'sports': get_sports() })
+    else:
+        global_ranking = GlobalRanking.objects.all().order_by('place')
+        return render(request, 'ligapwr/global_standings.html', { 'global_ranking': global_ranking, 'sports': get_sports() })
 
-    return render(request, 'ligapwr/standings.html', { 'sport_ranking': sport_ranking })
 
 def history(request):
     matches_for_history = Match.objects.filter(start_time__lt=timezone.now()).order_by('start_time')
-    return render(request, 'ligapwr/history.html', {'mecze':matches_for_history})
+
+    if request.GET.get('sport'):
+        matches_for_history = matches_for_history.filter(team_one__sport__id=request.GET.get('sport'))
+
+    return render(request, 'ligapwr/history.html', {'mecze':matches_for_history, 'sports': get_sports() })
 
