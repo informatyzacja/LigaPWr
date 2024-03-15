@@ -39,6 +39,12 @@ To start development server:
 make dev
 ```
 
+To run app via docker compose with nginx, certbot and postgres (may need elevated privilege first time running):
+
+```
+docker compose up -d
+```
+
 ## Other commands
 
 To add package:
@@ -65,8 +71,4 @@ To add dummy data to database:
 python3 manage.py add_dummy_data
 ```
 
-To run all docker containers(may need elevated privilege first time running):
 
-```
-docker compose up -d
-```
