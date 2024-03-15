@@ -16,20 +16,24 @@ services:
   server:
     build:
       context: .
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
     secrets:
       - db-password
     environment:
-      - DB_ENGINE=django.db.backends.postgresql
-      - DB_NAME=ligapwr
-      - DB_USER_NAME=postgres
-      - DB_PASSWORD_FILE=/run/secrets/db-password
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DEBUG=False
+      DB_ENGINE: 'django.db.backends.postgresql'
+      DB_NAME: 'ligapwr'
+      DB_USER_NAME: 'postgres'
+      DB_PASSWORD_FILE: '/run/secrets/db-password'
+      DB_HOST: 'db'
+      DB_PORT: '5432'
+      DEBUG: 'False'
+      ALLOWED_HOSTS: '*'
+      STATIC_ROOT: '/www/static'
     links:
       - "db:db"
+    volumes:
+      - static:/var/www/static/
     networks: 
       network:
     
@@ -70,21 +74,23 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 9876:9876
     networks:
       network:
   nginx:
-    image: nginx
+    #image: nginx
     restart: always
-    #build: ./nginx/
+    build: ./nginx/
     depends_on:
       - server
     ports:
-      - "2137:80"
+      - "80:80"
     volumes:
       - static:/usr/share/nginx/html
       - certbot_conf:/etc/letsencrypt
       - certbot_www:/var/www/certbot
+    networks:
+      network:
     # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   certbot:
