@@ -6,7 +6,9 @@ cp -R -f ligapwr/static/ /var/www/static
 cp -R -f staticfiles/. /var/www/static/static
 if [ $DEBUG == "True" ]; 
 then
-  python3 manage.py add_dummy_data
+  if [ $ADD_DUMMY_DATA == True ]; then
+    python3 manage.py add_dummy_data    
+  fi
   python3 manage.py migrate
   python3 manage.py runserver 0.0.0.0:8000
 else
