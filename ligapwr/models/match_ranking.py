@@ -10,8 +10,8 @@ class Match(models.Model):
     team_one = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='match_team_one_set')
     team_two = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='match_team_two_set')
     referee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
-    score_team_one = models.SmallIntegerField(null=True)
-    score_team_two = models.SmallIntegerField(null=True)
+    score_team_one = models.SmallIntegerField(null=True, blank=True)
+    score_team_two = models.SmallIntegerField(null=True, blank=True)
     winner_team = models.ForeignKey('Team', on_delete=models.PROTECT, related_name='match_winner_team_set', null=True)
 
     def __str__(self):

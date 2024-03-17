@@ -12,7 +12,15 @@ def schedule(request):
     matches_for_schedule = Match.objects.filter(start_time__gte=timezone.now()).order_by('start_time')
     if request.GET.get('sport'):
         matches_for_schedule = matches_for_schedule.filter(team_one__sport__id=request.GET.get('sport'))
-    return render(request, 'ligapwr/schedule.html', {'mecze':matches_for_schedule, 'sports': get_sports()})
+
+    days = matches_for_schedule.values_list('start_time__date', flat=True).distinct()
+    
+    matches_list = {}
+    for day in days:
+        matches_list[day] = matches_for_schedule.filter(start_time__date=day)
+
+
+    return render(request, 'ligapwr/schedule.html', {'mecze':matches_list, 'sports': get_sports()})
 
 def standings(request):
     # TODO: Wybór sportu i global rankingu
@@ -30,5 +38,12 @@ def history(request):
     if request.GET.get('sport'):
         matches_for_history = matches_for_history.filter(team_one__sport__id=request.GET.get('sport'))
 
-    return render(request, 'ligapwr/history.html', {'mecze':matches_for_history, 'sports': get_sports() })
+    days = matches_for_history.values_list('start_time__date', flat=True).distinct()
+    
+    matches_list = {}
+    for day in days:
+        matches_list[day] = matches_for_history.filter(start_time__date=day)
+
+
+    return render(request, 'ligapwr/history.html', {'mecze':matches_list, 'sports': get_sports() })
 

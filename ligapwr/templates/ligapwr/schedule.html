@@ -1,28 +1,23 @@
 <!-- schedule.html -->
-{% extends "ligapwr/base.html" %}
+{% extends 'ligapwr/base.html' %}
 
 {% block content %}
-<div class="matches-container">
-  <table class="matches-table">
-    {% for mecz in mecze %}
-    {% with mecz.start_time|date:"Y-m-d" as new_date %}
-    {% if forloop.first or new_date != previous_date %}
-    {% if not forloop.first %}</tbody>{% endif %}
-    <tbody class="date-section">
-    <tr class="date-header">
-      <td colspan="3">{{ new_date }}</td>
-    </tr>
-    {% endif %}
-    <tr class="match-row">
-      <td class="match-time">{{ mecz.start_time|date:"H:i" }}</td>
-      <td class="team team-one">{{ mecz.team_one }}</td>
-      <td class="team team-two">{{ mecz.team_two }}</td>
-    </tr>
-    {% if forloop.last %}</tbody>{% endif %}
-    {% with new_date as previous_date %}
-    {% endwith %}
-    {% endwith %}
-    {% endfor %}
-  </table>
-</div>
+  <div class="matches-container">
+    <table class="matches-table">
+      {% for day, meczeForDay in mecze.items %}
+        <tbody class="date-section">
+          <tr class="date-header">
+            <td colspan="3">{{ day|date:'Y-m-d' }}</td>
+          </tr>
+          {% for mecz in meczeForDay %}
+            <tr class="match-row">
+              <td class="match-time">{{ mecz.start_time|date:'H:i' }}</td>
+              <td class="team team-one">{{ mecz.team_one }}</td>
+              <td class="team team-two">{{ mecz.team_two }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% endfor %}
+    </table>
+  </div>
 {% endblock %}
