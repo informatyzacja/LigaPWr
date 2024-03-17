@@ -75,7 +75,8 @@ services:
     depends_on:
       - server
     ports:
-      - "801:80"
+      - "80:80"
+      - "443:443"
     volumes:
       - static:/usr/share/nginx/html
       - certbot_conf:/etc/letsencrypt
