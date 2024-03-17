@@ -67,9 +67,8 @@ services:
     networks:
       network:
   nginx:
-    # image: nginx
+    image: nginx
     restart: always
-    build: ./nginx/
     depends_on:
       - server
     ports:
