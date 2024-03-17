@@ -19,11 +19,13 @@ from django.urls import path
 
 from ligapwr.views import *
 
+from django.views.generic import RedirectView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('harmonogram/', schedule, name='schedule'),
-    path('', schedule, name='index'),
+    path('', RedirectView.as_view(url='harmonogram/'), name='index'),
     path('tabela/', standings, name='standings'),
     path('historia/', history, name='history'),
 ]

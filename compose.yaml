@@ -11,7 +11,6 @@ networks:
   network:
 
 
-
 services:
   server:
     build:
@@ -20,6 +19,7 @@ services:
       - 8000
     secrets:
       - db-password
+      - secret-key
     environment:
       DB_ENGINE: 'django.db.backends.postgresql'
       DB_NAME: 'ligapwr'
@@ -27,50 +27,52 @@ services:
       DB_PASSWORD_FILE: '/run/secrets/db-password'
       DB_HOST: 'db'
       DB_PORT: '5432'
+
+      SECRET_KEY_FILE: '/run/secrets/secret-key'
       DEBUG: 'False'
       ALLOWED_HOSTS: '*'
       STATIC_ROOT: '/www/static'
-      ADD_DUMMY_DATA: 'False'
+      ADD_DUMMY_DATA: 'True'
     links:
       - "db:db"
     volumes:
       - static:/var/www/static/
-    networks: 
+    networks:
       network:
-    
-    # The commented out section below is an example of how to define a PostgreSQL
-# database that your application can use. `depends_on` tells Docker Compose to
-# start the database before your application. The `db-data` volume persists the
-# database data between container restarts. The `db-password` secret is used
-# to set the database password. You must create `db/password.txt` and add
-# a password of your choosing to it before running `docker compose up`.
+
+        # The commented out section below is an example of how to define a PostgreSQL
+        # database that your application can use. `depends_on` tells Docker Compose to
+        # start the database before your application. The `db-data` volume persists the
+        # database data between container restarts. The `db-password` secret is used
+        # to set the database password. You must create `db/password.txt` and add
+        # a password of your choosing to it before running `docker compose up`.
     depends_on:
-       db:
-         condition: service_healthy
+      db:
+        condition: service_healthy
   db:
-     image: postgres
-     restart: always
-     user: postgres
-     secrets:
-       - db-password
-     volumes:
-       - db-data:/var/lib/postgresql/data
-     environment:
-       - POSTGRES_DB=ligapwr
-       - POSTGRES_USER=postgres
-       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-       - DATABASE_HOST=localhost
-     ports:
-       - 5432:5432
-     expose:
-       - "5432"
-     healthcheck:
-       test: [ "CMD", "pg_isready" ]
-       interval: 10s
-       timeout: 5s
-       retries: 5
-     networks:
-       network:
+    image: postgres
+    restart: always
+    user: postgres
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=ligapwr
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - DATABASE_HOST=localhost
+    ports:
+      - 5432:5432
+    expose:
+      - "5432"
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      network:
   adminer:
     image: adminer
     restart: always
@@ -92,7 +94,7 @@ services:
       - certbot_www:/var/www/certbot
     networks:
       network:
-    # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+        # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   certbot:
     image: certbot/certbot
@@ -101,7 +103,7 @@ services:
       - certbot_www:/var/www/certbot
       - certbot_logs:/var/log/letsencrypt
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    command: "certonly --webroot --webroot-path /var/www/certbot/ -d appka.ligapwr.com -d apka.ligapwr.com -m milosz.bedrylo@gmail.com --agree-tos --staple --non-interactive"
+    command: "certonly --webroot --webroot-path /var/www/certbot/ -d ligapwr.samorzad.pwr.edu.pl -d ligapwr.samorzad.pwr.edu.pl -m milosz.bedrylo@gmail.com --agree-tos --staple --non-interactive"
 
 volumes:
   static:
@@ -110,9 +112,7 @@ volumes:
   certbot_logs:
   db-data:
 secrets:
-   db-password:
-     file: db/password.txt
-     
-     
-
-
+  db-password:
+    file: secrets/password.txt
+  secret-key:
+    file: secrets/secret-key.txt

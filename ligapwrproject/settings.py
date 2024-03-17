@@ -20,14 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c$jnv$^fc(=2(e_ex5@bqaca9qgryy5w31a&b1!z6n#mc#d5=b'
+from django.core.management.utils import get_random_secret_key
+SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("DEBUG", False))
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 
 # Application definition
@@ -39,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
     'ligapwr'
 ]
 
@@ -87,16 +86,6 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT", ''),
     }
 }
-
-# "default": {
-#     "ENGINE": "django.db.backends.postgresql",
-#     "NAME": "ligapwr",
-#     "USER": "postgres",
-#     "PASSWORD": "P@ssword",
-#     "HOST": "db",
-#     "PORT": "5432",
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
