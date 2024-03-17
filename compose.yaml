@@ -1,0 +1,117 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+networks:
+  network:
+
+
+services:
+  server:
+    build:
+      context: .
+    expose:
+      - 8000
+    secrets:
+      - db-password
+      - secret-key
+    environment:
+      DB_ENGINE: 'django.db.backends.postgresql'
+      DB_NAME: 'ligapwr'
+      DB_USER_NAME: 'postgres'
+      DB_PASSWORD_FILE: '/run/secrets/db-password'
+      SECRET_KEY_FILE: '/run/secrets/secret-key'
+      DB_HOST: 'db'
+      DB_PORT: '5432'
+      DEBUG: 'False'
+      ALLOWED_HOSTS: '*'
+      STATIC_ROOT: '/www/static'
+      ADD_DUMMY_DATA: 'False'
+    links:
+      - "db:db"
+    volumes:
+      - static:/var/www/static/
+    networks:
+      network:
+
+        # The commented out section below is an example of how to define a PostgreSQL
+        # database that your application can use. `depends_on` tells Docker Compose to
+        # start the database before your application. The `db-data` volume persists the
+        # database data between container restarts. The `db-password` secret is used
+        # to set the database password. You must create `db/password.txt` and add
+        # a password of your choosing to it before running `docker compose up`.
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres
+    restart: always
+    user: postgres
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=ligapwr
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - DATABASE_HOST=localhost
+    ports:
+      - 5432:5432
+    expose:
+      - "5432"
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      network:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9876:9876
+    networks:
+      network:
+  nginx:
+    #image: nginx
+    restart: always
+    build: ./nginx/
+    depends_on:
+      - server
+    ports:
+      - "801:80"
+    volumes:
+      - static:/usr/share/nginx/html
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    networks:
+      network:
+        # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+      - certbot_logs:/var/log/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    command: "certonly --webroot --webroot-path /var/www/certbot/ -d appka.ligapwr.com -d apka.ligapwr.com -m milosz.bedrylo@gmail.com --agree-tos --staple --non-interactive"
+
+volumes:
+  static:
+  certbot_conf:
+  certbot_www:
+  certbot_logs:
+  db-data:
+secrets:
+  db-password:
+    file: secrets/password.txt
+  secret-key:
+    file: secrets/secret-key.txt
