@@ -27,7 +27,6 @@ services:
       DB_PASSWORD_FILE: '/run/secrets/db-password'
       DB_HOST: 'db'
       DB_PORT: '5432'
-
       SECRET_KEY_FILE: '/run/secrets/secret-key'
       DEBUG: 'False'
       ALLOWED_HOSTS: '*'
