@@ -39,8 +39,6 @@ To start development server:
 make dev
 ```
 
-Before running app with docker compose, create two secret files inside repo, both ins secrets/ directory, password.txt and secret-key.txt, in each one put corresponding value in first line.
-
 You can also adjust environmental variables in compose.yaml file, mainly DEBUG and ADD_DUMMY_DATA, both of which take True/False as an input.
 
 To run app via docker compose with nginx, certbot and postgres (may need elevated privilege first time running):

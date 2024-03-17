@@ -17,17 +17,14 @@ services:
       context: .
     expose:
       - 8000
-    secrets:
-      - db-password
-      - secret-key
     environment:
       DB_ENGINE: 'django.db.backends.postgresql'
       DB_NAME: 'ligapwr'
       DB_USER_NAME: 'postgres'
-      DB_PASSWORD_FILE: '/run/secrets/db-password'
       DB_HOST: 'db'
       DB_PORT: '5432'
-      SECRET_KEY_FILE: '/run/secrets/secret-key'
+      DB_PASSWORD: '${DB_PASSWORD}'
+      SECRET_KEY: '${SECRET_KEY}'
       DEBUG: 'False'
       ALLOWED_HOSTS: '*'
       STATIC_ROOT: '/www/static'
@@ -38,13 +35,6 @@ services:
       - static:/var/www/static/
     networks:
       network:
-
-        # The commented out section below is an example of how to define a PostgreSQL
-        # database that your application can use. `depends_on` tells Docker Compose to
-        # start the database before your application. The `db-data` volume persists the
-        # database data between container restarts. The `db-password` secret is used
-        # to set the database password. You must create `db/password.txt` and add
-        # a password of your choosing to it before running `docker compose up`.
     depends_on:
       db:
         condition: service_healthy
@@ -52,15 +42,13 @@ services:
     image: postgres
     restart: always
     user: postgres
-    secrets:
-      - db-password
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=ligapwr
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
       - DATABASE_HOST=localhost
+      - DB_PASSWORD=${DB_PASSWORD}
     ports:
       - 5432:5432
     expose:
@@ -86,7 +74,7 @@ services:
     depends_on:
       - server
     ports:
-      - "80:80"
+      - "801:80"
     volumes:
       - static:/usr/share/nginx/html
       - certbot_conf:/etc/letsencrypt
@@ -110,8 +98,3 @@ volumes:
   certbot_www:
   certbot_logs:
   db-data:
-secrets:
-  db-password:
-    file: secrets/password.txt
-  secret-key:
-    file: secrets/secret-key.txt

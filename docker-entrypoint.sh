@@ -1,11 +1,5 @@
 #!/bin/bash
 
-db_password_from_file=`awk 'NR==1' $DB_PASSWORD_FILE`
-export DB_PASSWORD=$db_password_from_file
-
-secred_key_from_file=`awk 'NR==1' $SECRET_KEY_FILE`
-export SECRET_KEY=$secred_key_from_file
-
 python manage.py collectstatic --noinput
 cp -R -f ligapwr/static/ /var/www/static
 cp -R -f staticfiles/. /var/www/static/static
