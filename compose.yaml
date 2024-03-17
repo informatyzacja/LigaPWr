@@ -25,13 +25,14 @@ services:
       DB_NAME: 'ligapwr'
       DB_USER_NAME: 'postgres'
       DB_PASSWORD_FILE: '/run/secrets/db-password'
-      SECRET_KEY_FILE: '/run/secrets/secret-key'
       DB_HOST: 'db'
       DB_PORT: '5432'
+
+      SECRET_KEY_FILE: '/run/secrets/secret-key'
       DEBUG: 'False'
       ALLOWED_HOSTS: '*'
       STATIC_ROOT: '/www/static'
-      ADD_DUMMY_DATA: 'False'
+      ADD_DUMMY_DATA: 'True'
     links:
       - "db:db"
     volumes:
@@ -102,7 +103,7 @@ services:
       - certbot_www:/var/www/certbot
       - certbot_logs:/var/log/letsencrypt
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    command: "certonly --webroot --webroot-path /var/www/certbot/ -d appka.ligapwr.com -d apka.ligapwr.com -m milosz.bedrylo@gmail.com --agree-tos --staple --non-interactive"
+    command: "certonly --webroot --webroot-path /var/www/certbot/ -d ligapwr.samorzad.pwr.edu.pl -d ligapwr.samorzad.pwr.edu.pl -m milosz.bedrylo@gmail.com --agree-tos --staple --non-interactive"
 
 volumes:
   static:
