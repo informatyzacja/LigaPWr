@@ -56,5 +56,24 @@
   .striped-table tbody tr:nth-child(even) {
     background-color: #8492C4; /* Slightly darker background for even rows */
   }
+      /* Zaokrąglenie górnego lewego rogu */
+      table tr:first-child th:first-child {
+      border-top-left-radius: 10px;
+    }
+    
+    /* Zaokrąglenie górnego prawego rogu */
+    table tr:first-child th:last-child {
+      border-top-right-radius: 10px;
+    }
+    
+    /* Zaokrąglenie dolnego lewego rogu */
+    table tr:last-child td:first-child {
+      border-bottom-left-radius: 10px;
+    }
+    
+    /* Zaokrąglenie dolnego prawego rogu */
+    table tr:last-child td:last-child {
+      border-bottom-right-radius: 10px;
+    }
 </style>
 {% endblock %}
