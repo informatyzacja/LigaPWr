@@ -50,40 +50,39 @@ class GlobalRanking(models.Model):
 
     @classmethod
     def calculate_points(self, edition):
-        # Calculate the points
+        '''
+        Calculate global points for all departments in the edition based on SportRanking.place_for_department
+        '''
         from . import Department, SportRanking, SportGlobalPoints
         for department in Department.objects.all():
-            raking, _ = self.objects.get_or_create(edition=edition, department=department, defaults={'place': 0, 'total_points': 0})
-            raking.total_points = 0
+            global_ranking, _ = self.objects.get_or_create(edition=edition, department=department, defaults={'place': 0, 'total_points': 0})
+            global_ranking.total_points = 0
             
             sport_ranking = SportRanking.objects.filter(edition=edition, team__department=department).order_by('place')
-            calculated_departments = []
             
             for ranking in sport_ranking:
-                if ranking.team.department in calculated_departments:
-                    continue
-                calculated_departments.append(ranking.team.department)
-
                 global_points = SportGlobalPoints.objects.get(sport=ranking.sport, edition=edition)
                 if ranking.place_for_department == 1:
-                    raking.total_points += global_points.first_place_points
+                    global_ranking.total_points += global_points.first_place_points
                 elif ranking.place_for_department == 2:
-                    raking.total_points += global_points.second_place_points
+                    global_ranking.total_points += global_points.second_place_points
                 elif ranking.place_for_department == 3:
-                    raking.total_points += global_points.third_place_points
+                    global_ranking.total_points += global_points.third_place_points
                 elif ranking.place_for_department == 4:
-                    raking.total_points += global_points.fourth_place_points
+                    global_ranking.total_points += global_points.fourth_place_points
                 else:
-                    raking.total_points += global_points.other_places_points
+                    global_ranking.total_points += global_points.other_places_points
 
-            raking.save()
+            global_ranking.save()
 
         # Update the places
         GlobalRanking.update_places(edition)
 
     @classmethod
     def update_places(self, edition):
-        # Update the places
+        '''
+        Update the 'GlobalRanking.place' for all departments in the edition
+        '''
         rankings = GlobalRanking.objects.filter(edition=edition).order_by('-total_points')
         place = 1
         for ranking in rankings:
@@ -113,7 +112,9 @@ class SportRanking(models.Model):
 
     @classmethod
     def calculate_points(self, sport, edition):
-        # Calculate the points
+        '''
+        Calculate the points for a particular sport for all teams in the edition
+        '''
         from . import Team
         for team in Team.objects.filter(sport__id=sport.id, edition__id=edition.id):
             raking, _ = SportRanking.objects.get_or_create(edition=edition, sport=sport, team=team, defaults={'place': 0, 'place_for_department': 0, 'total_points': 0})
@@ -146,7 +147,9 @@ class SportRanking(models.Model):
 
     @classmethod
     def update_places(self, sport, edition):
-        # Update the places
+        '''
+        Update the 'SportRanking.place' and 'SportRanking.place_for_department' for a particular sport
+        '''
         rankings = SportRanking.objects.filter(edition=edition, sport=sport).order_by('-total_points')
         place = 1
         for ranking in rankings:
