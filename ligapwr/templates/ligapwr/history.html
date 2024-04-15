@@ -3,8 +3,8 @@
 
 {% block content %}
   <div class="matches-container">
-    <table class="matches-table">
-      {% for day, meczeForDay in mecze.items %}
+    {% for day, meczeForDay in mecze.items %}
+      <table class="matches-table">
         <tbody class="date-section">
           <tr class="date-header">
             <td colspan="4">{{ day|date:'Y-m-d' }}</td>
@@ -18,7 +18,7 @@
             </tr>
           {% endfor %}
         </tbody>
-      {% endfor %}
-    </table>
+      </table>
+    {% endfor %}
   </div>
 {% endblock %}

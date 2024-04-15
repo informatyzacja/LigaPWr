@@ -3,22 +3,21 @@
 
 {% block content %}
   <div class="matches-container">
-    <table class="matches-table">
-      {% for day, meczeForDay in mecze.items %}
+    {% for day, meczeForDay in mecze.items %}
+      <table class="matches-table">
         <tbody class="date-section">
           <tr class="date-header">
             <td colspan="3">{{ day|date:'Y-m-d' }}</td>
           </tr>
           {% for mecz in meczeForDay %}
-          <tr class="match-row">
+            <tr class="match-row">
               <td class="match-time">{{ mecz.start_time|date:'H:i' }}</td>
               <td class="team team-one">{{ mecz.team_one }}</td>
               <td class="team team-two">{{ mecz.team_two }}</td>
             </tr>
-
           {% endfor %}
         </tbody>
-      {% endfor %}
-    </table>
+      </table>
+    {% endfor %}
   </div>
 {% endblock %}
