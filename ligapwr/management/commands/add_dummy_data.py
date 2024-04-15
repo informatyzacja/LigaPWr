@@ -52,8 +52,15 @@ class Command(BaseCommand):
         match6 = Match.objects.get_or_create(team_one=teamC, team_two=teamI, start_time='2024-03-10 20:50', end_time='2024-03-10 22:50', score_team_one=3, score_team_two=1)
 
         match7 = Match.objects.get_or_create(team_one=teamD, team_two=teamG, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
-        match8 = Match.objects.get_or_create(team_one=teamE, team_two=teamH, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
-        match9 = Match.objects.get_or_create(team_one=teamF, team_two=teamI, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
+        match8 = Match.objects.get_or_create(team_one=teamF, team_two=teamI, start_time='2024-05-10 20:50', end_time='2024-05-10 22:50')
+
+
+        match9 = Match.objects.get_or_create(team_one=teamD, team_two=teamG, start_time='2024-06-10 20:50', end_time='2024-06-10 22:50')
+        match10 = Match.objects.get_or_create(team_one=teamE, team_two=teamH, start_time='2024-06-10 20:50', end_time='2024-06-10 22:50')
+
+
+        match11 = Match.objects.get_or_create(team_one=teamE, team_two=teamH, start_time='2024-04-10 14:50', end_time='2024-04-10 16:50', score_team_one=1, score_team_two=0)
+        match12 = Match.objects.get_or_create(team_one=teamF, team_two=teamI, start_time='2024-04-10 20:50', end_time='2024-04-10 22:50', score_team_one=3, score_team_two=1)
 
         from ligapwr.models import calculate_all_points
         calculate_all_points()
