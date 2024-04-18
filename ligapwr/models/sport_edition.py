@@ -13,6 +13,7 @@ class Sport(models.Model):
     draw_points = models.SmallIntegerField()
     lose_points = models.SmallIntegerField()
     archive = models.BooleanField(default=False)
+    emoji = models.CharField(max_length=2, default='🏆')
 
     def __str__(self):
         return self.name
