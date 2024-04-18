@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.utils import timezone
-from ligapwr.models import Match, SportRanking, GlobalRanking, Sport
+from ligapwr.models import Match, SportRanking, GlobalRanking, Sport, Team, Department
 from django.db import models
 
 def get_sports():
     return Sport.objects.all()
+
+def get_departments():
+    return Department.objects.all()
 
 # Create your views here.
 def schedule(request):
@@ -47,3 +50,12 @@ def history(request):
 
     return render(request, 'ligapwr/history.html', {'mecze':matches_list, 'sports': get_sports() })
 
+def teams(request):
+    teams = {}
+    if request.GET.get('sport') and request.GET.get('department'):
+        teams = Team.objects.filter(sport__id=request.GET.get('sport'), department__id=request.GET.get('department'))
+    elif request.GET.get('sport'):
+        teams = Team.objects.filter(sport__id=request.GET.get('sport'))
+    elif request.GET.get('department'):
+        teams = Team.objects.filter(department__id=request.GET.get('department'))
+    return render(request, 'ligapwr/teams.html', {'teams': teams, 'sports': get_sports(), 'departments': get_departments()})

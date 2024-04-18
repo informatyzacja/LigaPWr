@@ -28,4 +28,5 @@ urlpatterns = [
     path('', RedirectView.as_view(url='harmonogram/'), name='index'),
     path('tabela/', standings, name='standings'),
     path('historia/', history, name='history'),
+    path('druzyny/', teams, name='teams'),
 ]

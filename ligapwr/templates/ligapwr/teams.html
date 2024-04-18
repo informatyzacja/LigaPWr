@@ -1,0 +1,73 @@
+<!-- teams.html -->
+{% extends 'ligapwr/base.html' %}
+
+{% block content %}
+    <!-- Treść specyficzna dla strony tabeli -->
+
+    <div class="table-container">
+        <table class="striped-table">
+            <thead>
+            <tr>
+                <th>L.p.</th>
+                <th>Nazwa drużyny</th>
+                <th>Wydział</th>
+                <th>Sport</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for team in teams %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ team.name }}</td>
+                    <td>{{ team.department }}</td>
+                    <td>{{ team.sport }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        .table-container {
+            overflow-x: auto; /* For responsive design */
+        }
+        .striped-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .striped-table th,
+        .striped-table td {
+            padding: 8px;
+            text-align: left;
+        }
+        .striped-table thead tr {
+            background-color: #3c69b3; /* Darker header background */
+            color: #fff; /* White text color */
+        }
+        .striped-table tbody tr:nth-child(odd) {
+            background-color: #99A9D2; /* Lighter background for odd rows */
+        }
+        .striped-table tbody tr:nth-child(even) {
+            background-color: #8492C4; /* Slightly darker background for even rows */
+        }
+        /* Zaokrąglenie górnego lewego rogu */
+        table tr:first-child th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        /* Zaokrąglenie górnego prawego rogu */
+        table tr:first-child th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+        /* Zaokrąglenie dolnego lewego rogu */
+        table tr:last-child td:first-child {
+            border-bottom-left-radius: 10px;
+        }
+
+        /* Zaokrąglenie dolnego prawego rogu */
+        table tr:last-child td:last-child {
+            border-bottom-right-radius: 10px;
+        }
+    </style>
+{% endblock %}

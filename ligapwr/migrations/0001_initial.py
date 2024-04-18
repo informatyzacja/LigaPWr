@@ -41,6 +41,7 @@ class Migration(migrations.Migration):
                 ('draw_points', models.SmallIntegerField()),
                 ('lose_points', models.SmallIntegerField()),
                 ('archive', models.BooleanField(default=False)),
+                ('emoji', models.CharField(default='🏆', max_length=2)),
             ],
             options={
                 'verbose_name': 'Sport',

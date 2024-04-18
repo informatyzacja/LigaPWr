@@ -8,9 +8,9 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        sport1, _ = Sport.objects.get_or_create(name='Piłka nożna', win_points=3, draw_points=1, lose_points=0)
-        sport2, _ = Sport.objects.get_or_create(name='Koszykówka', win_points=2, draw_points=1, lose_points=0)
-        sport3, _ = Sport.objects.get_or_create(name='Siatkówka', win_points=2, draw_points=1, lose_points=0)
+        sport1, _ = Sport.objects.get_or_create(name='Piłka nożna', win_points=3, draw_points=1, lose_points=0, emoji='⚽')
+        sport2, _ = Sport.objects.get_or_create(name='Koszykówka', win_points=2, draw_points=1, lose_points=0, emoji='🏀')
+        sport3, _ = Sport.objects.get_or_create(name='Siatkówka', win_points=2, draw_points=1, lose_points=0, emoji='🏐')
 
         edition, _ = Edition.objects.get_or_create(name='Lato 2024')
 

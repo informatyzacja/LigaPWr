@@ -206,7 +206,7 @@ box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
           <select id="sport-select" class="sport-select" title="Select a sport" onchange="this.form.submit()" name="sport">
             <option value="">Wszystkie</option>
             {% for sport in sports %}
-              <option value="{{ sport.id }}" {% if request.GET.sport == sport.id|stringformat:"i" %}selected{% endif %}>{{ sport.name }}</option>
+              <option value="{{ sport.id }}" {% if request.GET.sport == sport.id|stringformat:"i" %}selected{% endif %}>{{ sport.name }} {{ sport.emoji }}</option>
             {% endfor %}
           </select>
         </form>
