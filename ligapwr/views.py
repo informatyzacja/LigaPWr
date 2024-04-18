@@ -51,13 +51,12 @@ def history(request):
     return render(request, 'ligapwr/history.html', {'mecze':matches_list, 'sports': get_sports() })
 
 def teams(request):
-    teams = {}
-    if request.GET.get('sport') and request.GET.get('department'):
-        teams = Team.objects.filter(sport__id=request.GET.get('sport'), department__id=request.GET.get('department'))
-    elif request.GET.get('sport'):
-        teams = Team.objects.filter(sport__id=request.GET.get('sport'))
-    elif request.GET.get('department'):
-        teams = Team.objects.filter(department__id=request.GET.get('department'))
-    else:
-        teams = Team.objects.all().order_by('sport', 'department')
+    teams = Team.objects.order_by('sport', 'department')
+
+    if request.GET.get('sport'):
+        teams = teams.filter(sport__id=request.GET.get('sport'))
+
+    if request.GET.get('department'):
+        teams = teams.filter(department__id=request.GET.get('department'))
+        
     return render(request, 'ligapwr/teams.html', {'teams': teams, 'sports': get_sports(), 'departments': get_departments(), 'request': request})
