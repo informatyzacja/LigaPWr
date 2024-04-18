@@ -58,4 +58,6 @@ def teams(request):
         teams = Team.objects.filter(sport__id=request.GET.get('sport'))
     elif request.GET.get('department'):
         teams = Team.objects.filter(department__id=request.GET.get('department'))
-    return render(request, 'ligapwr/teams.html', {'teams': teams, 'sports': get_sports(), 'departments': get_departments()})
+    else:
+        teams = Team.objects.all().order_by('sport', 'department')
+    return render(request, 'ligapwr/teams.html', {'teams': teams, 'sports': get_sports(), 'departments': get_departments(), 'request': request})

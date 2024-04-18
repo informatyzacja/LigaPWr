@@ -10,8 +10,12 @@
             <tr>
                 <th>L.p.</th>
                 <th>Nazwa drużyny</th>
+                {% if not request.GET.department %}
                 <th>Wydział</th>
-                <th>Sport</th>
+                {% endif %}
+                {% if not request.GET.sport %}
+                    <th>Sport</th>	
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -19,8 +23,12 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ team.name }}</td>
-                    <td>{{ team.department }}</td>
-                    <td>{{ team.sport }}</td>
+                    {% if not request.GET.department %}
+                        <td>{{ team.department }}</td>
+                    {% endif %}
+                    {% if not request.GET.sport %}
+                        <td>{{ team.sport }}</td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
