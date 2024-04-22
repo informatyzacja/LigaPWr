@@ -2,62 +2,62 @@
 {% extends 'ligapwr/base.html' %}
 
 {% block content %}
-<!-- Treść specyficzna dla strony tabeli -->
+  <!-- Treść specyficzna dla strony tabeli -->
 
-<div class="table-container">
-  <table class="striped-table">
-    <thead>
-      <tr>
-        <th>L.p.</th>
-        <th>Nazwa drużyny</th>
-        <th>M</th>
-        <th>W</th>
-        <th>R</th>
-        <th>P</th>
-        <th>Pkt</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for ranking in sport_ranking %}
+  <div class="table-container">
+    <table class="striped-table">
+      <thead>
         <tr>
-          <td>{{ ranking.place }}</td>
-          <td>{{ ranking.team.name }}</td>
-          <td>{{ ranking.maches }}</td>
-          <td>{{ ranking.wins }}</td>
-          <td>{{ ranking.draws }}</td>
-          <td>{{ ranking.loses }}</td>
-          <td>{{ ranking.total_points }}</td>
+          <th>L.p.</th>
+          <th>Nazwa drużyny</th>
+          <th>M</th>
+          <th>W</th>
+          <th>R</th>
+          <th>P</th>
+          <th>Pkt</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        {% for ranking in sport_ranking %}
+          <tr>
+            <td>{{ ranking.place }}</td>
+            <td>{{ ranking.team.name }} ({{ ranking.team.department }})</td>
+            <td>{{ ranking.maches }}</td>
+            <td>{{ ranking.wins }}</td>
+            <td>{{ ranking.draws }}</td>
+            <td>{{ ranking.loses }}</td>
+            <td>{{ ranking.total_points }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-<style>
-  .table-container {
-    overflow-x: auto; /* For responsive design */
-  }
-  .striped-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .striped-table th,
-  .striped-table td {
-    padding: 8px;
-    text-align: left;
-  }
-  .striped-table thead tr {
-    background-color: #3c69b3; /* Darker header background */
-    color: #fff; /* White text color */
-  }
-  .striped-table tbody tr:nth-child(odd) {
-    background-color: #99A9D2; /* Lighter background for odd rows */
-  }
-  .striped-table tbody tr:nth-child(even) {
-    background-color: #8492C4; /* Slightly darker background for even rows */
-  }
-      /* Zaokrąglenie górnego lewego rogu */
-      table tr:first-child th:first-child {
+  <style>
+    .table-container {
+      overflow-x: auto; /* For responsive design */
+    }
+    .striped-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .striped-table th,
+    .striped-table td {
+      padding: 8px;
+      text-align: left;
+    }
+    .striped-table thead tr {
+      background-color: #3c69b3; /* Darker header background */
+      color: #fff; /* White text color */
+    }
+    .striped-table tbody tr:nth-child(odd) {
+      background-color: #99a9d2; /* Lighter background for odd rows */
+    }
+    .striped-table tbody tr:nth-child(even) {
+      background-color: #8492c4; /* Slightly darker background for even rows */
+    }
+    /* Zaokrąglenie górnego lewego rogu */
+    table tr:first-child th:first-child {
       border-top-left-radius: 10px;
     }
     
@@ -75,5 +75,5 @@
     table tr:last-child td:last-child {
       border-bottom-right-radius: 10px;
     }
-</style>
+  </style>
 {% endblock %}
