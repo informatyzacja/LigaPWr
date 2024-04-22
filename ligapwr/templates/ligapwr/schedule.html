@@ -7,10 +7,13 @@
       <table class="matches-table">
         <tbody class="date-section">
           <tr class="date-header">
-            <td colspan="3">{{ day|date:'Y-m-d' }}</td>
+            <td colspan="4">{{ day|date:'Y-m-d' }}</td>
           </tr>
           {% for mecz in meczeForDay %}
             <tr class="match-row">
+              {% if not request.GET.sport %}
+                <td class="emoji">{{ mecz.team_two.sport.emoji }}</td>
+              {% endif %}
               <td class="match-time">{{ mecz.start_time|date:'H:i' }}</td>
               <td class="team team-one">{{ mecz.team_one }}</td>
               <td class="team team-two">{{ mecz.team_two }}</td>
