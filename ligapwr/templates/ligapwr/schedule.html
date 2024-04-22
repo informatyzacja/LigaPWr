@@ -15,8 +15,8 @@
                 <td class="emoji">{{ mecz.team_two.sport.emoji }}</td>
               {% endif %}
               <td class="match-time">{{ mecz.start_time|date:'H:i' }}</td>
-              <td class="team team-one">{{ mecz.team_one }}</td>
-              <td class="team team-two">{{ mecz.team_two }}</td>
+              <td class="team team-one">{{ mecz.team_one }} ({{ mecz.team_one.department }})</td>
+              <td class="team team-two">{{ mecz.team_two }} ({{ mecz.team_two.department }})</td>
             </tr>
           {% endfor %}
         </tbody>
