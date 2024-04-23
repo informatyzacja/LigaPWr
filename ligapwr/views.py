@@ -60,3 +60,8 @@ def teams(request):
         teams = teams.filter(department__id=request.GET.get('department'))
         
     return render(request, 'ligapwr/teams.html', {'teams': teams, 'sports': get_sports(), 'departments': get_departments(), 'request': request})
+
+def team(request, team_id):
+    team = Team.objects.get(id=team_id)
+    print(team.department)
+    return render(request, 'ligapwr/team.html', {'druzyna':team})

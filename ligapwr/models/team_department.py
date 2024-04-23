@@ -1,6 +1,19 @@
 from django.db import models
 from django.conf import settings
 
+class Player(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    position = models.CharField(max_length=100)
+    player_number = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} {self.position} {self.player_number}"
+    
+    class Meta:
+        verbose_name = 'Zawodnik'
+        verbose_name_plural = 'Zawodnicy'
+
 class Team(models.Model):
     name = models.CharField(max_length=100)
     department = models.ForeignKey('Department', on_delete=models.PROTECT)
@@ -8,6 +21,7 @@ class Team(models.Model):
     edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
     place = models.SmallIntegerField(null=True)
     total_points = models.SmallIntegerField(null=True)
+    players = models.ManyToManyField(Player)
 
     def __str__(self):
         return self.name
@@ -37,5 +51,6 @@ class UserTeam(models.Model):
         return f"{self.user}-{self.team}"
 
     class Meta:
-        verbose_name = 'Zawodnik'
-        verbose_name_plural = 'Zawodnicy'
+        verbose_name = 'Kapitan'
+        verbose_name_plural = 'Kapitanowie'
+
