@@ -15,9 +15,9 @@
                 <td class="emoji">{{ mecz.team_two.sport.emoji }}</td>
               {% endif %}
               <td class="match-time">{{ mecz.start_time|date:'H:i' }}</td>
-              <td class="team team-one">{{ mecz.team_one }} ({{ mecz.team_one.department }})</td>
+              <td class="team team-one"><a href="{% url 'team' mecz.team_one.id %}">{{ mecz.team_one }}</a>  ({{ mecz.team_one.department }})</td>
               <td class="team score">{{ mecz.score_team_one }} - {{ mecz.score_team_two }}</td>
-              <td class="team team-two">{{ mecz.team_two }} ({{ mecz.team_two.department }})</td>
+              <td class="team team-two"><a href="{% url 'team' mecz.team_two.id %}">{{ mecz.team_two }}</a>  ({{ mecz.team_two.department }})</td>
             </tr>
           {% endfor %}
         </tbody>

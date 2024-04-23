@@ -22,7 +22,7 @@
         {% for team in teams %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ team.name }}</td>
+            <td><a href="{% url 'team' team.id %}">{{ team.name }}</a></td>
             {% if not request.GET.department %}
               <td>{{ team.department }}</td>
             {% endif %}

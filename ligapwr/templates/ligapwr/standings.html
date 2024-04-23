@@ -21,7 +21,7 @@
         {% for ranking in sport_ranking %}
           <tr>
             <td>{{ ranking.place }}</td>
-            <td>{{ ranking.team.name }} ({{ ranking.team.department }})</td>
+            <td><a href="{% url 'team' ranking.team.id %}">{{ ranking.team.name }}</a>  ({{ ranking.team.department }})</td>
             <td>{{ ranking.maches }}</td>
             <td>{{ ranking.wins }}</td>
             <td>{{ ranking.draws }}</td>

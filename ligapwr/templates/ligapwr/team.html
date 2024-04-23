@@ -1,0 +1,34 @@
+<!-- teams.html -->
+{% extends 'ligapwr/base.html' %}
+
+{% block content %}
+  <!-- Treść specyficzna dla strony tabeli -->
+
+  <h1>{{ druzyna.name }}</h1>
+  <p>Wydział: {{ druzyna.department }}</p>
+  <p>Sport: {{ druzyna.sport }}</p>
+
+  <h2>Zawodnicy</h2>
+
+  <table>
+    <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Pozycja</th>
+            <th>Numer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for player in druzyna.players.all %}
+        <tr>
+            <td>{{ player.first_name }}</td>
+            <td>{{ player.last_name }}</td>
+            <td>{{ player.position }}</td>
+            <td>{{ player.player_number }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

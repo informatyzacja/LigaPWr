@@ -29,4 +29,5 @@ urlpatterns = [
     path('tabela/', standings, name='standings'),
     path('historia/', history, name='history'),
     path('druzyny/', teams, name='teams'),
+    path('druzyna/<int:team_id>/', team, name='team'),
 ]
