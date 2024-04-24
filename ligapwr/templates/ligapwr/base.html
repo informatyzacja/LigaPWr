@@ -8,7 +8,7 @@
     {% load static %}
     <style>
       html {
-      height: -webkit-fill-available;
+        height: -webkit-fill-available;
       }
       body {
         display: flex;
@@ -27,16 +27,22 @@
         margin: auto;
         border: solid 1px #3c69b3;
         -webkit-box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
--moz-box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
-box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
+        -moz-box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
+        box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
       }
+
       header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        max-width: inherit;
+        box-sizing: border-box;
+
         display: flex;
         justify-content: space-between;
         align-items: center;
         background-color: #3c69b3;
-        min-height: 8vh;
-        max-height: 25vh;
+        height: 125px;
         border-bottom: solid 1px black;
 
       }
@@ -51,9 +57,9 @@ box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
         /* Styl dla labelki */
       }
       .footer-link.active span {
-    font-weight: bold; /* Przykład zmiany wyglądu tekstu dla aktywnego linku */
-    color: black; /* Przykład zmiany koloru dla aktywnego linku */
-  }
+        font-weight: bold; /* Przykład zmiany wyglądu tekstu dla aktywnego linku */
+        color: black; /* Przykład zmiany koloru dla aktywnego linku */
+      }
       .sport-select {
         display: block;
         padding: 8px 16px;
@@ -91,16 +97,30 @@ box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
 
           }
       main {
+        height: auto;
+        overflow-y: auto;
+
+        margin-top: 125px;
         background-color: white;
         padding: 16px;
         flex: 1;
+        padding-bottom: 108px;
+      }
+      main::-webkit-scrollbar {
+        display: none;
       }
       footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        max-width: inherit;
+        box-sizing: border-box;
+        
         display: flex;
         justify-content: space-between;
         padding: 8px;
         background-color: #3c69b3;
-        min-height: 10vh;
+        height: 92px;
         border-top: solid 1px black;
         height: calc (100% - 10vh);
       }
