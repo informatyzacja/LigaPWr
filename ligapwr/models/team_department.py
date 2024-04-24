@@ -21,6 +21,7 @@ class Team(models.Model):
     edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
     place = models.SmallIntegerField(null=True)
     total_points = models.SmallIntegerField(null=True)
+    capitan = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True)
     players = models.ManyToManyField(Player)
 
     def __str__(self):
@@ -40,17 +41,4 @@ class Department(models.Model):
         verbose_name = 'Wydział'
         verbose_name_plural = 'Wydziały'
 
-class UserTeam(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-    team = models.ForeignKey('Team', on_delete=models.PROTECT)
-    is_capitan = models.BooleanField()
-
-    def __str__(self):
-        if self.is_capitan:
-            return f"{self.user}-{self.team} Kapitan"
-        return f"{self.user}-{self.team}"
-
-    class Meta:
-        verbose_name = 'Kapitan'
-        verbose_name_plural = 'Kapitanowie'
 
