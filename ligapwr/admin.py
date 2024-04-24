@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models.match_ranking import Match, GlobalRanking, SportRanking
 from .models.sport_edition import Sport, Edition, SportGlobalPoints
-from .models.team_department import Player, Team, Department, UserTeam
+from .models.team_department import Player, Team, Department
 
 from django import forms
 class MatchAdminForm(forms.ModelForm):
@@ -62,10 +62,6 @@ class TeamAdmin(admin.ModelAdmin):
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(UserTeam)
-class UserTeamAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Player)
