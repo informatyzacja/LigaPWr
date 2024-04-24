@@ -40,8 +40,8 @@ class Edition(models.Model):
         verbose_name_plural = 'Edycje'
 
 class SportGlobalPoints(models.Model):
-    sport = models.ForeignKey('Sport', on_delete=models.PROTECT)
-    edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
+    sport = models.ForeignKey('Sport', on_delete=models.CASCADE)
+    edition = models.ForeignKey('Edition', on_delete=models.CASCADE)
     first_place_points = models.SmallIntegerField()
     second_place_points = models.SmallIntegerField(default=0)
     third_place_points = models.SmallIntegerField(default=0)
