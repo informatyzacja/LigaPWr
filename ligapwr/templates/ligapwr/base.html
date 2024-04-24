@@ -4,28 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@600&display=swap" rel="stylesheet" />
+    <!-- colors -->
+    <meta name="theme-color" content="#3c69b3" />
+    <meta name="msapplication-navbutton-color" content="#3c69b3" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#3c69b3" />
+    <meta name="msapplication-TileColor" content="#3c69b3" />
+    
     <title>Liga PWr</title>
     {% load static %}
     <style>
       html {
-        height: -webkit-fill-available;
+          min-height: 100%;
       }
       body {
         display: flex;
         flex-direction: column;
-        height: 100vh;
-        min-height: 100vh;
         background-color: white;
         margin: 0;
         padding: 0;
         font-family: 'Lato', sans-serif;
         font-weight: 600;
-        min-height: -webkit-fill-available;
         max-width: 500px;
         mask-origin: auto;
         -webkit-mask-origin: auto;
         margin: auto;
-        border: solid 1px #3c69b3;
+        outline: solid 1px #3c69b3;
         -webkit-box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
         -moz-box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
         box-shadow: 0px 19px 100px 44px rgba(60, 105, 179, 0.58);
@@ -42,11 +45,10 @@
         justify-content: space-between;
         align-items: center;
         background-color: #3c69b3;
-        height: 125px;
+        height: 80px;
         border-bottom: solid 1px black;
 
       }
-      
       .header-button-container {
         display: flex;
         align-items: center;
@@ -82,25 +84,24 @@
       }
       .header-image-container {
         width: 50%;
+        height: 100%;
         background-color: white;
         display: flex;
         align-items: center;
         justify-content: center;
       }
       .header-cover-img {
-        max-width: 75%;
-        max-height: 75%;
+        max-width: 85%;
+        max-height: 85%;
         object-fit: contain;
-        min-height: 8vh;
-        max-height: 25vh;
         margin: 8px;  
-
-          }
+      }
       main {
         height: auto;
         overflow-y: auto;
 
-        margin-top: 125px;
+        margin-top: 80px;
+
         background-color: white;
         padding: 16px;
         flex: 1;
@@ -121,6 +122,7 @@
         padding: 8px;
         background-color: #3c69b3;
         height: 92px;
+
         border-top: solid 1px black;
         height: calc (100% - 10vh);
       }
