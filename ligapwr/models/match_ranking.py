@@ -36,10 +36,10 @@ class Match(models.Model):
         SportRanking.calculate_points(self.team_one.sport, self.team_one.edition)
 
 class GlobalRanking(models.Model):
-    department = models.ForeignKey('Department', on_delete=models.PROTECT)
+    department = models.ForeignKey('Department', on_delete=models.CASCADE)
     place = models.SmallIntegerField()
     total_points = models.SmallIntegerField()
-    edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
+    edition = models.ForeignKey('Edition', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Ranking globalny edycja {self.edition}"
@@ -91,12 +91,12 @@ class GlobalRanking(models.Model):
             place += 1
 
 class SportRanking(models.Model):
-    team = models.ForeignKey('Team', on_delete=models.PROTECT)
+    team = models.ForeignKey('Team', on_delete=models.CASCADE)
     place = models.SmallIntegerField()
     place_for_department = models.SmallIntegerField()
     total_points = models.SmallIntegerField()
-    edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
-    sport = models.ForeignKey('Sport', on_delete=models.PROTECT)
+    edition = models.ForeignKey('Edition', on_delete=models.CASCADE)
+    sport = models.ForeignKey('Sport', on_delete=models.CASCADE)
 
     maches = models.SmallIntegerField(default=0)
     wins = models.SmallIntegerField(default=0)

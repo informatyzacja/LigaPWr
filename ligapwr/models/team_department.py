@@ -21,8 +21,8 @@ class Team(models.Model):
     edition = models.ForeignKey('Edition', on_delete=models.PROTECT)
     place = models.SmallIntegerField(null=True)
     total_points = models.SmallIntegerField(null=True)
-    capitan = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True)
-    players = models.ManyToManyField(Player)
+    capitan = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    players = models.ManyToManyField(Player, blank=True)
 
     def __str__(self):
         return self.name

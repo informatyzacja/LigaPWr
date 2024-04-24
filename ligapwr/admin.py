@@ -27,20 +27,20 @@ class MatchAdmin(admin.ModelAdmin):
     list_display = ('team_one', 'team_two', 'start_time', 'end_time', 'winner_team')
     exclude = ['winner_team']
 
-@admin.register(GlobalRanking)
-class GlobalRankingAdmin(admin.ModelAdmin):
-    list_display = ('department', 'place', 'total_points', 'edition')
-    list_filter = ('edition', 'department')
-    ordering = ('edition', 'place')
+# @admin.register(GlobalRanking)
+# class GlobalRankingAdmin(admin.ModelAdmin):
+#     list_display = ('department', 'place', 'total_points', 'edition')
+#     list_filter = ('edition', 'department')
+#     ordering = ('edition', 'place')
 
-    def has_add_permission(self, request):
-        return False
+#     def has_add_permission(self, request):
+#         return False
     
-    def has_delete_permission(self, request, obj=None):
-        return False
+#     def has_delete_permission(self, request, obj=None):
+#         return False
     
-    def has_change_permission(self, request, obj=None):
-        return False
+#     def has_change_permission(self, request, obj=None):
+#         return False
 
 @admin.register(Sport)
 class SportAdmin(admin.ModelAdmin):
@@ -68,18 +68,18 @@ class DepartmentAdmin(admin.ModelAdmin):
 class PlayerAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(SportRanking)
-class SportRankingAdmin(admin.ModelAdmin):
-    list_display = ('team', 'place', 'place_for_department', 'total_points', 'edition', 'sport')
-    list_filter = ('edition', 'sport')
+# @admin.register(SportRanking)
+# class SportRankingAdmin(admin.ModelAdmin):
+#     list_display = ('team', 'place', 'place_for_department', 'total_points', 'edition', 'sport')
+#     list_filter = ('edition', 'sport')
 
-    ordering = ('edition', 'sport', 'place')
+#     ordering = ('edition', 'sport', 'place')
 
-    def has_add_permission(self, request):
-        return False
+#     def has_add_permission(self, request):
+#         return False
     
-    def has_delete_permission(self, request, obj=None):
-        return False
+#     def has_delete_permission(self, request, obj=None):
+#         return False
     
-    def has_change_permission(self, request, obj=None):
-        return False
+#     def has_change_permission(self, request, obj=None):
+#         return False
