@@ -58,9 +58,13 @@
       .button-link {
         /* Styl dla labelki */
       }
+      .footer-link.active {
+        background-color: #ffffff; /* Kolor tła aktywnej zakładki */
+        color: #3c69b3; /* Kolor tekstu aktywnej zakładki */
+        border-radius: 8px; /* Zaokrąglenie rogów aktywnej zakładki */
+      }
       .footer-link.active span {
-        font-weight: bold; /* Przykład zmiany wyglądu tekstu dla aktywnego linku */
-        color: black; /* Przykład zmiany koloru dla aktywnego linku */
+        font-weight: bold;
       }
       .sport-select {
         display: block;
@@ -132,8 +136,9 @@
         align-items: center;
         text-decoration: none;
         color: white;
-        width: 33.333%;
+        width: 25%; /* Zaktualizuj szerokość, aby pomieścić cztery linki */
         padding: 8px;
+        transition: background-color 0.3s; /* Dodanie płynnego przejścia */
       }
       .footer-image-container {
         width: 100%;
@@ -254,23 +259,29 @@
     </main>
 
     <footer>
-        <a href="{% url 'schedule' %}" class="footer-link {% if request.resolver_match.url_name == 'schedule' %}active{% endif %}">
+        <a href="{% url 'schedule' %}?sport={{ request.GET.sport }}" class="footer-link {% if request.resolver_match.url_name == 'schedule' %}active{% endif %}">
           <div class="footer-image-container">
             <img src="{% static 'images/schedule-icon' %}{% if request.resolver_match.url_name == 'schedule' %}-clicked{% endif %}.png" alt="Harmonogram" class="footer-cover-img" />
           </div>
           <span>Harmonogram</span>
         </a>
-        <a href="{% url 'standings' %}" class="footer-link {% if request.resolver_match.url_name == 'standings' %}active{% endif %}">
+        <a href="{% url 'standings' %}?sport={{ request.GET.sport }}" class="footer-link {% if request.resolver_match.url_name == 'standings' %}active{% endif %}">
           <div class="footer-image-container">
             <img src="{% static 'images/standings-icon' %}{% if request.resolver_match.url_name == 'standings' %}-clicked{% endif %}.png" alt="Tabela" class="footer-cover-img" />
           </div>
           <span>Tabela</span>
         </a>
-        <a href="{% url 'history' %}" class="footer-link {% if request.resolver_match.url_name == 'history' %}active{% endif %}">
+        <a href="{% url 'history' %}?sport={{ request.GET.sport }}" class="footer-link {% if request.resolver_match.url_name == 'history' %}active{% endif %}">
           <div class="footer-image-container">
             <img src="{% static 'images/results-icon' %}{% if request.resolver_match.url_name == 'history' %}-clicked{% endif %}.png" alt="Wyniki" class="footer-cover-img" />
           </div>
           <span>Wyniki</span>
+        </a>
+        <a href="{% url 'teams' %}?sport={{ request.GET.sport }}" class="footer-link {% if request.resolver_match.url_name == 'teams' %}active{% endif %}">
+          <div class="footer-image-container">
+            <img src="{% static 'images/teams-icon' %}{% if request.resolver_match.url_name == 'teams' %}-clicked{% endif %}.png" alt="Drużyny" class="footer-cover-img" />
+          </div>
+          <span>Drużyny</span>
         </a>
       </footer>
       
